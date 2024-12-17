@@ -118,7 +118,7 @@ const IssuesPage = () => {
                 </div>
               </ModalBody>
               <ModalFooter className="border-t">
-                <Button variant="ghost" onPress={() => onOpenChange(false)}>
+                <Button variant="ghost" onPress={() => onOpenChange()}>
                   Cancel
                 </Button>
                 <Button
