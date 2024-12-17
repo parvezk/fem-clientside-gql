@@ -15,7 +15,6 @@
     "@apollo/server": "^4.10.4",
     "@as-integrations/next": "^3.0.0",
     "@libsql/client": "^0.6.0",
-    "@libsql/linux-x64-gnu": "^1.x.x",
     "@nextui-org/react": "^2.3.6",
     "@urql/exchange-graphcache": "^7.0.2",
     "@urql/next": "^1.1.1",
