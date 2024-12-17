@@ -1,7 +1,7 @@
 import { gql } from 'urql'
 
 export const IssuesQuery = gql`
-  query {
+  query IssuesQuery {
     issues {
       content
       createdAt

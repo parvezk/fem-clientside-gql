@@ -2,7 +2,7 @@
 import { IssuesQuery } from '@/gql/issuesQuery'
 import PageHeader from '../_components/PageHeader'
 import { useMutation, useQuery } from 'urql'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Button,
   Modal,
@@ -23,16 +23,26 @@ const IssuesPage = () => {
   const [{ data, fetching, error }, replay] = useQuery({
     query: IssuesQuery,
   })
-
+  const [issues, setIssues] = useState(data?.issues || [])
   const [newIssueResult, createNewIssue] = useMutation(CreateIssueMutation)
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [issueName, setIssueName] = useState('')
   const [issueDescription, setIssueDescription] = useState('')
 
+  useEffect(() => {
+    if (data?.issues) {
+      setIssues(data.issues)
+    }
+  }, [data?.issues])
+
   const onCreate = async (close) => {
     const result = await createNewIssue({
       input: { name: issueName, content: issueDescription },
     })
+
+    if (result.error) {
+      console.log(result.error)
+    }
 
     if (result.data) {
       await replay({ requestPolicy: 'network-only' })
@@ -40,6 +50,10 @@ const IssuesPage = () => {
       setIssueName('')
       setIssueDescription('')
     }
+  }
+
+  const filterOut = (id: string) => {
+    setIssues(issues.filter((issue) => issue.id !== id))
   }
 
   return (
@@ -56,10 +70,10 @@ const IssuesPage = () => {
       </PageHeader>
       {fetching && <Spinner />}
       {error && <div>error</div>}
-      {data &&
-        data.issues.map((issue) => (
+      {issues &&
+        issues.map((issue) => (
           <div key={issue.id}>
-            <Issue issue={issue} />
+            <Issue issue={issue} filterOut={filterOut} />
           </div>
         ))}
 
