@@ -82,7 +82,7 @@ const resolvers = {
     deleteIssue: async (_, { id }, ctx) => {
       if (!ctx.user)
         throw new GraphQLError('UNAUTHORIZED', { extensions: { code: 401 } })
-
+      console.log('delete issue', id)
       await db.delete(issues).where(eq(issues.id, id))
       return id
     },

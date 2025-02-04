@@ -6,7 +6,9 @@ import { EditIssueIssueMutation } from '@/gql/editIssueIssueMutation'
 import { DeleteIssueMutation } from '@/gql/deleteIssueMutation'
 
 const Issue = ({ issue, filterOut }: any) => {
-  const [content, setContent] = useState(issue.name)
+  console.log('issue', issue)
+  const [name, setName] = useState(issue.name)
+  const [content, setContent] = useState(issue.content)
   const editableRef = useRef()
   const displayId = issue.id.split('-').pop().slice(-3)
   const [editResult, editIssue] = useMutation(EditIssueIssueMutation)
@@ -16,12 +18,12 @@ const Issue = ({ issue, filterOut }: any) => {
     async (e: any) => {
       e.preventDefault()
       const text = e.target.textContent
-      if (e.code !== 'Enter' || text === content) return
+      if (e.code !== 'Enter' || text === name) return
 
       await editIssue({ input: { id: issue.id, name: text } })
-      setContent(text)
+      setName(text)
     },
-    [issue.id, content, editIssue]
+    [issue.id, name, editIssue]
   )
 
   const deleteFn = async (e: any) => {
@@ -38,19 +40,16 @@ const Issue = ({ issue, filterOut }: any) => {
       <Status status={issue.status} issueId={issue.id} />
 
       <span
-        className="basis-2/4"
+        className="basis-1/4"
         ref={editableRef}
         suppressContentEditableWarning
         contentEditable="true"
         onKeyUp={editFn}
       >
-        {content}
+        {name}
       </span>
-      <button
-        data-issue-id={issue.id}
-        onClick={deleteFn}
-        className="basis-.5/4"
-      >
+      <span className="basis-1/4">{content}</span>
+      <button data-issue-id={issue.id} onClick={deleteFn}>
         Delete
       </button>
     </div>

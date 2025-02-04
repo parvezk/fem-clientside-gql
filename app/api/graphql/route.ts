@@ -9,6 +9,11 @@ import typeDefs from './schema'
 import resolvers from './resolvers'
 import { getUserFromToken } from '@/utils/auth'
 
+/**
+ * API route handler to create custom request handlers for a give route
+ * HTTP methods supported: GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS
+ */
+
 let plugins = []
 if (process.env.NODE_ENV === 'production') {
   plugins = [
