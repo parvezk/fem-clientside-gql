@@ -1,0 +1,13 @@
+Run `npm run dev` -> localhost:3000
+
+ACCESS GRAPHQL EXPLORER: http://localhost:3000/api/graphql
+
+For schema changes, run db migration -> db:push
+
+Drizzle Studio: npm run db:studio -> https://local.drizzle.studio
+
+TURSO DB: libsql://my-db-parvezk.turso.io
+TURSO DRIZZLE STUDIO: https://app.turso.tech/parvezk/databases/my-db/drizzle
+
+https://app.outerbase.com/
+https://app.outerbase.com/882b4036-f2c7-47b2-b06d-32e6d5854c6f/f8f49c2a-a861-4711-8b32-9c239681e2a0/source/531527cf-2b1f-40e0-a59f-51c1959eeed3/schema/main/table/issues/
